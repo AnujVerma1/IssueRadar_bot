@@ -1,0 +1,47 @@
+name: IssueRadar
+
+on:
+  schedule:
+    # Runs every 5 minutes (GitHub Actions minimum is 5 min)
+    - cron: "*/5 * * * *"
+
+  # Allow manual trigger from GitHub UI
+  workflow_dispatch:
+
+jobs:
+  check-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download database
+        uses: actions/download-artifact@v4
+        with:
+          name: issueradar-db
+          path: .
+        continue-on-error: true  # First run won't have an artifact yet
+
+      - name: Run IssueRadar
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python main.py --once
+
+      - name: Upload database
+        uses: actions/upload-artifact@v4
+        with:
+          name: issueradar-db
+          path: issueradar.db
+          overwrite: true
+          retention-days: 90

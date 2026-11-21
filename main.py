@@ -64,22 +64,31 @@ def check_repositories() -> int:
 
 def main() -> None:
     """Entry point — run initial check, then poll on a schedule."""
+    run_once = "--once" in sys.argv
     interval = config.SCHEDULER.get("interval_minutes", 2)
 
     print("=" * 60)
     print("  IssueRadar — GitHub Issue Monitor")
     print("=" * 60)
     print(f"  Monitoring {len(config.TARGET_REPOSITORIES)} repository(ies)")
-    print(f"  Poll interval: {interval} minute(s)")
+    if run_once:
+        print("  Mode: single run (--once)")
+    else:
+        print(f"  Poll interval: {interval} minute(s)")
     print("=" * 60)
     print()
 
     # Initial check on startup.
-    print(f"[{_now()}] Running initial check ...")
+    print(f"[{_now()}] Checking for new issues ...")
     sent = check_repositories()
-    print(f"[{_now()}] Initial check complete — {sent} notification(s) sent.\n")
+    print(f"[{_now()}] Done — {sent} notification(s) sent.\n")
 
-    # Continuous polling loop.
+    # Exit immediately in single-run mode (used by GitHub Actions).
+    if run_once:
+        print(f"[{_now()}] Single run complete. Exiting.")
+        return
+
+    # Continuous polling loop (used when running locally).
     try:
         while True:
             print(f"[{_now()}] Sleeping for {interval} minute(s) ...")
