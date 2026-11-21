@@ -32,10 +32,31 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
 # Repositories to Monitor
 # ---------------------------------------------------------------------------
 TARGET_REPOSITORIES = [
+    # Original
     "docling-project/docling",
     "infiniflow/ragflow",
     "qdrant/fastembed",
     "Unstructured-IO/unstructured",
+    # RAG & LLM Frameworks
+    "run-llama/llama_index",
+    "deepset-ai/haystack",
+    "langchain-ai/langchain",
+    "HKUDS/LightRAG",
+    "stanfordnlp/dspy",
+    "pydantic/pydantic-ai",
+    # Evaluation & Observability
+    "explodinggradients/ragas",
+    "langfuse/langfuse",
+    "promptfoo/promptfoo",
+    # Embeddings & Vector DBs
+    "huggingface/sentence-transformers",
+    "chroma-core/chroma",
+    "lancedb/lancedb",
+    "PrithivirajDamodaran/FlashRank",
+    # LLM Tools
+    "BerriAI/litellm",
+    "FlowiseAI/Flowise",
+    "ollama/ollama",
 ]
 
 # ---------------------------------------------------------------------------
