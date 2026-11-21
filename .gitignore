@@ -1,0 +1,9 @@
+# Secrets
+.env
+
+# Database
+issueradar.db
+
+# Python
+__pycache__/
+*.pyc
