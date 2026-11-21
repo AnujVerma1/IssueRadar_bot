@@ -2,24 +2,31 @@
 IssueRadar Configuration
 ========================
 Edit this file to customize which GitHub issues trigger Telegram notifications.
+All secrets (tokens, chat IDs) are loaded from a .env file — never hardcode them here.
 """
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # ---------------------------------------------------------------------------
-# Telegram Bot Settings
+# Telegram Bot Settings (loaded from .env)
 # ---------------------------------------------------------------------------
-# 1. Create a bot via @BotFather on Telegram and paste the token below.
+# 1. Create a bot via @BotFather on Telegram.
 # 2. Send a message to your bot, then visit:
 #    https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates
 #    to find your chat_id.
-TELEGRAM_BOT_TOKEN = "9076037493:AAE8zlHafLUpPO262CZc5s6bl3Efo5nNNr8"
-TELEGRAM_CHAT_ID = "1934300357"
+# 3. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in your .env file.
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
 # ---------------------------------------------------------------------------
-# GitHub Settings (optional)
+# GitHub Settings (loaded from .env, optional)
 # ---------------------------------------------------------------------------
 # A personal access token increases the rate limit from 60 to 5 000 req/hour.
-# Leave empty to use unauthenticated requests.
-GITHUB_TOKEN = ""
+# Set GITHUB_TOKEN in your .env file. Leave unset to use unauthenticated requests.
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
 
 # ---------------------------------------------------------------------------
 # Repositories to Monitor

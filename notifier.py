@@ -41,12 +41,12 @@ def send_notification(issue: dict, repo: str) -> bool:
     token = config.TELEGRAM_BOT_TOKEN
     chat_id = config.TELEGRAM_CHAT_ID
 
-    if not token or token == "YOUR_TELEGRAM_BOT_TOKEN":
-        print("  [WARN] Telegram bot token not configured. Skipping notification.")
+    if not token:
+        print("  [WARN] TELEGRAM_BOT_TOKEN not set in .env file. Skipping notification.")
         return False
 
-    if not chat_id or chat_id == "YOUR_TELEGRAM_CHAT_ID":
-        print("  [WARN] Telegram chat ID not configured. Skipping notification.")
+    if not chat_id:
+        print("  [WARN] TELEGRAM_CHAT_ID not set in .env file. Skipping notification.")
         return False
 
     message = _format_message(issue, repo)
