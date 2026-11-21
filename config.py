@@ -57,6 +57,15 @@ TARGET_REPOSITORIES = [
     "BerriAI/litellm",
     "FlowiseAI/Flowise",
     "ollama/ollama",
+    # Vector Search & Retrieval
+    "weaviate/weaviate",
+    "qdrant/qdrant",
+    # Agent Testing & Evaluation
+    "langwatch/langwatch",
+    # Embeddings & Search
+    "jina-ai/jina",
+    # Conversational AI
+    "RasaHQ/rasa",
 ]
 
 # ---------------------------------------------------------------------------
