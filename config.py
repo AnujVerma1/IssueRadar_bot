@@ -26,7 +26,7 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 # ---------------------------------------------------------------------------
 # A personal access token increases the rate limit from 60 to 5 000 req/hour.
 # Set GITHUB_TOKEN in your .env file. Leave unset to use unauthenticated requests.
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
+GITHUB_TOKEN = os.getenv("ISSUE_GITHUB_TOKEN", "")
 
 # ---------------------------------------------------------------------------
 # Repositories to Monitor
