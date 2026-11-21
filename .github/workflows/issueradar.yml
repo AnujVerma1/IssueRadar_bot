@@ -2,7 +2,7 @@ name: IssueRadar
 
 on:
   schedule:
-    # Runs every 5 minutes (GitHub Actions minimum is 5 min)
+    # Runs every 5 minutes (GitHub Actions minimum)
     - cron: "*/5 * * * *"
 
   # Allow manual trigger from GitHub UI
@@ -29,14 +29,21 @@ jobs:
         with:
           name: issueradar-db
           path: .
-        continue-on-error: true  # First run won't have an artifact yet
+        continue-on-error: true
 
-      - name: Run IssueRadar
+      - name: Run IssueRadar (3 checks, ~2 min apart)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python main.py --once
+        run: |
+          python main.py --once
+          echo "--- Waiting 2 minutes ---"
+          sleep 120
+          python main.py --once
+          echo "--- Waiting 2 minutes ---"
+          sleep 120
+          python main.py --once
 
       - name: Upload database
         uses: actions/upload-artifact@v4
